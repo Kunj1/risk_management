@@ -4,8 +4,8 @@ from .market_analysis_agent import MarketAnalysisAgent
 from .project_status_agent import ProjectStatusAgent
 from .risk_scoring_agent import RiskScoringAgent
 from .reporting_agent import ReportingAgent
-from ..data.database import get_db_client
-from ..utils.gemini_client import get_gemini_client
+from backend.data.database import get_db_client
+from backend.utils.gemini_client import get_gemini_client
 
 class ProjectRiskManager:
     def __init__(self):

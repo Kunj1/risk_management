@@ -1,7 +1,7 @@
 # market_analysis_agent.py
 from crewai import Agent, Task
-from ..utils.gemini_client import get_gemini_client
-from ..data.database import get_db_client
+from backend.utils.gemini_client import get_gemini_client
+from backend.data.database import get_db_client
 
 class MarketAnalysisAgent:
     def __init__(self):

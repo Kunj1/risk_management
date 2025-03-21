@@ -86,32 +86,37 @@ def show_dashboard(api_url):
         
         # Generate sample trend data
         dates = pd.date_range(end=pd.now().date(), periods=30, freq='D')
-trend_data = pd.DataFrame({
-'Date': dates,
-'High Risks': np.random.randint(total_high_risks - 5, total_high_risks + 5, 30),
-'Medium Risks': np.random.randint(total_medium_risks - 8, total_medium_risks + 8, 30),
-'Low Risks': np.random.randint(total_low_risks - 10, total_low_risks + 10, 30)
-})
-# Plot the trend
-    fig_trend = px.line(
-        trend_data, 
-        x='Date', 
-        y=['High Risks', 'Medium Risks', 'Low Risks'],
-        title='Risk Trend Over Time',
-        color_discrete_sequence=["#FF4B4B", "#FFA64B", "#4BD964"]
-    )
+        trend_data = pd.DataFrame({
+            'Date': dates,
+            'High Risks': np.random.randint(total_high_risks - 5, total_high_risks + 5, 30),
+            'Medium Risks': np.random.randint(total_medium_risks - 8, total_medium_risks + 8, 30),
+            'Low Risks': np.random.randint(total_low_risks - 10, total_low_risks + 10, 30)
+        })
+        # Plot the trend
+        fig_trend = px.line(
+            trend_data, 
+            x='Date', 
+            y=['High Risks', 'Medium Risks', 'Low Risks'],
+            title='Risk Trend Over Time',
+            color_discrete_sequence=["#FF4B4B", "#FFA64B", "#4BD964"]
+        )
     
-    st.plotly_chart(fig_trend, use_container_width=True)
+        st.plotly_chart(fig_trend, use_container_width=True)
     
     # Recent risk alerts
     st.subheader("Recent Risk Alerts")
     
+    if projects_data:
     # In a real app, these would be actual alerts
-    alerts = [
+        alerts = [
         {"project": projects_data[0]["name"], "risk": "Schedule delay risk increased to HIGH", "timestamp": "Today 10:30 AM"},
-        {"project": projects_data[-1]["name"], "risk": "New regulatory compliance risk identified", "timestamp": "Yesterday 3:45 PM"},
-        {"project": projects_data[1]["name"], "risk": "Resource availability risk escalated", "timestamp": "Mar 15, 2025"}
+        {"project": projects_data[-1]["name"] if len(projects_data) > 1 else projects_data[0]["name"], 
+         "risk": "New regulatory compliance risk identified", "timestamp": "Yesterday 3:45 PM"},
+        {"project": projects_data[1]["name"] if len(projects_data) > 1 else projects_data[0]["name"], 
+         "risk": "Resource availability risk escalated", "timestamp": "Mar 15, 2025"}
     ]
     
-    for alert in alerts:
-        st.info(f"**{alert['project']}**: {alert['risk']} - *{alert['timestamp']}*")
+        for alert in alerts:
+            st.info(f"**{alert['project']}**: {alert['risk']} - *{alert['timestamp']}*")
+    else:
+        st.warning("No projects available. Please make sure the backend API is running and returning data.")

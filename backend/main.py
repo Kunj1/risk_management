@@ -2,8 +2,8 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from agents.project_risk_manager import ProjectRiskManager
-from data.database import initialize_db
+from backend.agents.project_risk_manager import ProjectRiskManager
+from backend.data.database import initialize_db
 
 app = FastAPI(title="Project Risk Management API")
 

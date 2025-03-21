@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 # API URL
-API_URL = st.secrets.get("API_URL", "http://localhost:8000")
+API_URL = "http://localhost:8000"
 
 # Initialize session state
 if "page" not in st.session_state:
