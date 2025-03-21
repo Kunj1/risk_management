@@ -1,2 +1,3 @@
 .env
 crewai_env
+__pycache__
