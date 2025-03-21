@@ -9,7 +9,7 @@ SUPABASE_URL=<br>
 SUPABASE_KEY=<br>
 CHROMA_PERSIST_DIR=<br>
 
-
+<br>
 to activate virtual env:<br>
 <name>\Scripts\activate<br>
 
