@@ -1,6 +1,6 @@
 backend and frontend left to connect
 <br>
-create project post, and all pages
+create project posting function, and all pages. There are only a few GET endpoints atm
 
 <br>
 .env:<br>
@@ -11,7 +11,7 @@ CHROMA_PERSIST_DIR=<br>
 
 <br>
 to activate virtual env:<br>
-<name>\Scripts\activate<br>
+name\Scripts\activate<br>
 
 <br>
 risk_management>python -m backend.main<br>
