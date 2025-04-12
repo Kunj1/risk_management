@@ -8,11 +8,9 @@ from sqlalchemy import func
 
 from ..models import Project, RiskLog, Alert
 from ..schemas import RiskLogCreate
-from ..utils.logger import get_logger
+from ..utils.logger import LoggerMixin
 
-logger = get_logger(__name__)
-
-class ProjectStatusAgent:
+class ProjectStatusAgent(LoggerMixin):
     """
     Agent responsible for monitoring internal project metrics and identifying risks
     based on project parameters like resource availability, payment status, and schedule delays.
@@ -35,7 +33,7 @@ class ProjectStatusAgent:
             project = self.db.query(Project).filter(Project.project_id == project_id).first()
             
             if not project:
-                logger.error(f"Project with ID {project_id} not found")
+                self.logger.error(f"Project with ID {project_id} not found")
                 return {"error": "Project not found", "risk_identified": False}
             
             risks = []
@@ -96,7 +94,7 @@ class ProjectStatusAgent:
             }
             
         except Exception as e:
-            logger.error(f"Error analyzing project status: {str(e)}")
+            self.logger.error(f"Error analyzing project status: {str(e)}")
             return {"error": str(e), "risk_identified": False}
     
     def analyze_all_projects(self) -> List[Dict[str, Any]]:
@@ -117,7 +115,7 @@ class ProjectStatusAgent:
             return results
         
         except Exception as e:
-            logger.error(f"Error analyzing all projects: {str(e)}")
+            self.logger.error(f"Error analyzing all projects: {str(e)}")
             return [{"error": str(e), "risk_identified": False}]
     
     def _evaluate_resource_risk(self, resource_availability: int) -> Dict[str, Any]:
@@ -284,7 +282,7 @@ class ProjectStatusAgent:
             self.db.commit()
             
         except Exception as e:
-            logger.error(f"Error logging risk: {str(e)}")
+            self.logger.error(f"Error logging risk: {str(e)}")
             self.db.rollback()
     
     def _create_alert(self, project_id: UUID, risks: List[Dict[str, Any]], risk_level: str) -> None:
@@ -321,5 +319,5 @@ class ProjectStatusAgent:
             self.db.commit()
             
         except Exception as e:
-            logger.error(f"Error creating alert: {str(e)}")
+            self.logger.error(f"Error creating alert: {str(e)}")
             self.db.rollback()

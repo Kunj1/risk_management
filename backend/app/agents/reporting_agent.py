@@ -1,4 +1,3 @@
-import logging
 from datetime import datetime, timedelta
 from uuid import UUID
 from typing import Dict, List, Optional, Any, Tuple
@@ -11,11 +10,9 @@ from ..models import Project, RiskLog, Alert, User
 from ..agents.market_analysis import MarketAnalysisAgent
 from ..agents.risk_scoring import RiskScoringAgent
 from ..agents.project_status import ProjectStatusAgent
-from ..utils.logger import get_logger
+from ..utils.logger import LoggerMixin
 
-logger = get_logger(__name__)
-
-class ReportingAgent:
+class ReportingAgent(LoggerMixin):
     """
     Agent responsible for collating data from other agents,
     generating comprehensive risk reports, and creating alerts
@@ -73,7 +70,7 @@ class ReportingAgent:
             return report
             
         except Exception as e:
-            logger.error(f"Error generating comprehensive report: {str(e)}")
+            self.logger.error(f"Error generating comprehensive report: {str(e)}")
             return {"error": str(e)}
     
     def generate_risk_trend_report(self, project_id: Optional[UUID] = None, days: int = 30) -> Dict[str, Any]:
@@ -137,7 +134,7 @@ class ReportingAgent:
             }
             
         except Exception as e:
-            logger.error(f"Error generating risk trend report: {str(e)}")
+            self.logger.error(f"Error generating risk trend report: {str(e)}")
             return {"error": str(e)}
     
     def get_active_alerts(self, project_id: Optional[UUID] = None) -> Dict[str, Any]:
@@ -176,7 +173,7 @@ class ReportingAgent:
             return {"alerts": result}
             
         except Exception as e:
-            logger.error(f"Error getting active alerts: {str(e)}")
+            self.logger.error(f"Error getting active alerts: {str(e)}")
             return {"error": str(e)}
     
     def acknowledge_alert(self, alert_id: UUID) -> Dict[str, Any]:
@@ -201,7 +198,7 @@ class ReportingAgent:
             return {"success": True, "message": "Alert acknowledged successfully"}
             
         except Exception as e:
-            logger.error(f"Error acknowledging alert: {str(e)}")
+            self.logger.error(f"Error acknowledging alert: {str(e)}")
             self.db.rollback()
             return {"error": str(e)}
     
@@ -255,7 +252,7 @@ class ReportingAgent:
             }
             
         except Exception as e:
-            logger.error(f"Error getting high risk projects: {str(e)}")
+            self.logger.error(f"Error getting high risk projects: {str(e)}")
             return {"error": str(e)}
     
     def create_executive_summary(self) -> Dict[str, Any]:
@@ -314,7 +311,7 @@ class ReportingAgent:
             }
             
         except Exception as e:
-            logger.error(f"Error creating executive summary: {str(e)}")
+            self.logger.error(f"Error creating executive summary: {str(e)}")
             return {"error": str(e)}
     
     def _generate_overall_summary(self, projects_data: List[Dict[str, Any]], market_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -344,7 +341,7 @@ class ReportingAgent:
             }
             
         except Exception as e:
-            logger.error(f"Error generating overall summary: {str(e)}")
+            self.logger.error(f"Error generating overall summary: {str(e)}")
             return {"error": str(e)}
     
     def _generate_recommendations(self, projects_data: List[Dict[str, Any]], market_data: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -402,7 +399,7 @@ class ReportingAgent:
             return recommendations
             
         except Exception as e:
-            logger.error(f"Error generating recommendations: {str(e)}")
+            self.logger.error(f"Error generating recommendations: {str(e)}")
             return [{"category": "Error", "recommendation": "Error generating recommendations", "priority": "LOW"}]
     
     def _determine_risk_level(self, risk_score: float) -> str:
@@ -443,7 +440,7 @@ class ReportingAgent:
             return [log.details for log in recent_logs]
             
         except Exception as e:
-            logger.error(f"Error getting top issues for project: {str(e)}")
+            self.logger.error(f"Error getting top issues for project: {str(e)}")
             return ["Error retrieving issues"]
     
     def _generate_executive_recommendations(self, risk_counts: Dict[str, int], high_risk_projects: List[Dict[str, Any]]) -> List[str]:

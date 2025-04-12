@@ -8,8 +8,8 @@ from ..models import User, ChatLog
 from ..schemas import ChatMessageIn, ChatMessageOut
 from ..utils.security import get_current_user
 from langchain.chains import LLMChain
-from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from ..config import settings
 
@@ -26,10 +26,7 @@ async def chat_with_bot(
     """
     try:
         # Initialize the LLM based on your API keys
-        if settings.OPENAI_API_KEY:
-            llm = ChatOpenAI(temperature=0.7, model_name="gpt-4", api_key=settings.OPENAI_API_KEY)
-        elif settings.GEMINI_API_KEY:
-            from langchain_google_genai import ChatGoogleGenerativeAI
+        if settings.GEMINI_API_KEY:
             llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.7, google_api_key=settings.GEMINI_API_KEY)
         else:
             raise HTTPException(

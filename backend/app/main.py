@@ -28,12 +28,12 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 # Include routers
-app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
-app.include_router(projects.router, prefix="/api/projects", tags=["Projects"])
-app.include_router(risks.router, prefix="/api/risks", tags=["Risks"])
-app.include_router(market.router, prefix="/api/market", tags=["Market Analysis"])
-app.include_router(reporting.router, prefix="/api/reports", tags=["Reporting"])
-app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
+app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
+app.include_router(projects.router, prefix="/projects", tags=["Projects"])
+app.include_router(risks.router, prefix="/risks", tags=["Risks"])
+app.include_router(market.router, prefix="/market", tags=["Market Analysis"])
+app.include_router(reporting.router, prefix="/reports", tags=["Reporting"])
+app.include_router(chat.router, prefix="/chat", tags=["Chat"])
 
 # Global exception handler
 @app.exception_handler(Exception)
@@ -59,4 +59,4 @@ async def shutdown_event():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("backend.app.main:app", host="0.0.0.0", port=8000, reload=True)

@@ -12,3 +12,10 @@ PINECONE_API_KEY=pcsk_74Q455_QeXgB6C3kjopZg2c6SuCizxaKUAXeDKf3SR7vZW1CCigxGEgZef
 PINECONE_ENVIRONMENT=gcp-starter
 PINECONE_INDEX_NAME=project-risk-index
 ```
+
+<br>
+
+register and login working
+reroute the post-login to dashboard
+problem in frontend\streamlit_app.py
+has done experimental_rerun, dk wtf that is

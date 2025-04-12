@@ -5,7 +5,7 @@ from typing import Tuple, Dict, Any, Optional
 
 # API endpoint
 API_URL = "http://localhost:8000"  # Adjust if your backend is on a different URL
-
+'''
 def login(username: str, password: str) -> Tuple[bool, str]:
     """
     Attempt to log in the user with provided credentials.
@@ -21,6 +21,37 @@ def login(username: str, password: str) -> Tuple[bool, str]:
         response = requests.post(
             f"{API_URL}/auth/login",
             json={"username": username, "password": password}
+        )
+        
+        if response.status_code == 200:
+            # Login successful, store token in session state
+            data = response.json()
+            st.session_state.token = data.get("access_token")
+            st.session_state.username = username
+            return True, "Login successful"
+        else:
+            # Login failed
+            error_msg = response.json().get("detail", "Invalid credentials")
+            return False, f"Login failed: {error_msg}"
+    
+    except Exception as e:
+        return False, f"Connection error: {str(e)}"
+'''
+def login(username: str, password: str) -> Tuple[bool, str]:
+    """
+    Attempt to log in the user with provided credentials.
+    
+    Args:
+        username: The username to log in with
+        password: The password to authenticate with
+        
+    Returns:
+        Tuple of (success, message) where success is a boolean and message is feedback
+    """
+    try:
+        response = requests.post(
+            f"{API_URL}/auth/token",  # Changed from /auth/login to /auth/token
+            data={"username": username, "password": password}  # Changed from json to data
         )
         
         if response.status_code == 200:

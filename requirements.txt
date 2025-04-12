@@ -4,6 +4,7 @@ uvicorn
 crewai
 langchain
 langchain-google-genai
+langchain_community
 google-generativeai
 supabase
 chromadb
@@ -12,11 +13,15 @@ numpy
 python-dotenv
 scikit-learn
 setuptools
-jose
+python-jose
 pydantic_settings
 pydantic[email]
 python-multipart
 langchain_community
+psycopg2
+pycryptodome
+passlib
+crewai[tools]
 
 # Frontend
 streamlit

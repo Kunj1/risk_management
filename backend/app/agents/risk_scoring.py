@@ -12,7 +12,6 @@ from ..utils.logger import LoggerMixin
 
 from crewai import Agent, Task, Crew
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.chat_models import ChatOpenAI
 
 logger = logging.getLogger(__name__)
 
@@ -81,8 +80,6 @@ class RiskScoringAgent(LoggerMixin):
             # Select LLM based on available API keys
             if settings.GEMINI_API_KEY:
                 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=settings.GEMINI_API_KEY)
-            elif settings.OPENAI_API_KEY:
-                llm = ChatOpenAI(model="gpt-4", api_key=settings.OPENAI_API_KEY)
             else:
                 self.logger.error("No LLM API key available for risk analysis")
                 return self._get_mock_analysis_results(project, internal_risk)

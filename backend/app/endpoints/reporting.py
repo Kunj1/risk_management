@@ -8,7 +8,7 @@ from ..db.database import get_db
 from ..models import User, Project, Alert, RiskLog
 from ..schemas import AlertCreate, AlertOut, AlertUpdate, ReportRequest, ReportResponse
 from ..utils.security import get_current_user
-from ..agents.reporting_agent import generate_risk_report
+from ..agents.reporting_agent import ReportingAgent
 
 router = APIRouter()
 
@@ -39,14 +39,31 @@ async def create_report(
     
     # Generate report using the reporting agent
     try:
-        report = await generate_risk_report(
-            db=db,
-            user_id=current_user.user_id,
-            project_ids=report_request.project_ids,
-            report_type=report_request.report_type,
-            start_date=report_request.start_date,
-            end_date=report_request.end_date
-        )
+        reporting_agent = ReportingAgent(db)
+        
+        # Choose appropriate report generation method based on report type
+        if report_request.report_type == "comprehensive":
+            # If project_ids contains exactly one project, use that project ID
+            project_id = report_request.project_ids[0] if report_request.project_ids and len(report_request.project_ids) == 1 else None
+            report = reporting_agent.generate_comprehensive_report(project_id=project_id)
+        elif report_request.report_type == "risk_trend":
+            project_id = report_request.project_ids[0] if report_request.project_ids and len(report_request.project_ids) == 1 else None
+            # Calculate days between start and end date if provided
+            days = 30  # Default
+            if report_request.start_date and report_request.end_date:
+                delta = report_request.end_date - report_request.start_date
+                days = delta.days
+            report = reporting_agent.generate_risk_trend_report(project_id=project_id, days=days)
+        elif report_request.report_type == "high_risk_projects":
+            report = reporting_agent.get_high_risk_projects()
+        elif report_request.report_type == "executive_summary":
+            report = reporting_agent.create_executive_summary()
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Unsupported report type: {report_request.report_type}"
+            )
+            
         return report
     except Exception as e:
         raise HTTPException(
