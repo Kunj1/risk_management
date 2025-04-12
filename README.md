@@ -1,11 +1,11 @@
-GEMINI_API_KEY=AIzaSyC70do0gP7fvLU37jRU3XGjEqtd3YV91PE
-DATABASE_URL=postgresql://agents_owner:npg_pW3eNmGsASB7@ep-damp-firefly-a1puvvwf-pooler.ap-southeast-1.aws.neon.tech/agents?sslmode=require
-SUPABASE_URL=https://xpdpesvmwydqtilzurkf.supabase.co
-SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwZHBlc3Ztd3lkcXRpbHp1cmtmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MjI4MjMwOCwiZXhwIjoyMDU3ODU4MzA4fQ.af3p0Z9Rvb8mEg-G4ZLyyCgK7bHM_dSyEk10ttIyr3s
-CHROMA_PERSIST_DIR=./backend/data/chroma_db
-ALPHA_VANTAGE_API_KEY=W9HJ1Z1CEGLCVQHY
-FINANCIAL_MODELING_PREP_API_KEY=wELBWTxgCf4hvHwEPlbKEzEyJGV9NFjO
-SECRET_KEY=tBa9DQghZ4I0gIbmaRx+rCsvpVQeHUNzasNpZNsU/1g=
-PINECONE_API_KEY=pcsk_74Q455_QeXgB6C3kjopZg2c6SuCizxaKUAXeDKf3SR7vZW1CCigxGEgZefphFJ51p4sHuE
-PINECONE_ENVIRONMENT=gcp-starter
-PINECONE_INDEX_NAME=project-risk-index
+GEMINI_API_KEY=AIzaSyC70do0gP7fvLU37jRU3XGjEqtd3YV91PE <br>
+DATABASE_URL=postgresql://agents_owner:npg_pW3eNmGsASB7@ep-damp-firefly-a1puvvwf-pooler.ap-southeast-1.aws.neon.tech/agents?sslmode=require <br>
+SUPABASE_URL=https://xpdpesvmwydqtilzurkf.supabase.co <br>
+SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwZHBlc3Ztd3lkcXRpbHp1cmtmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MjI4MjMwOCwiZXhwIjoyMDU3ODU4MzA4fQ.af3p0Z9Rvb8mEg-G4ZLyyCgK7bHM_dSyEk10ttIyr3s <br>
+CHROMA_PERSIST_DIR=./backend/data/chroma_db <br>
+ALPHA_VANTAGE_API_KEY=W9HJ1Z1CEGLCVQHY <br>
+FINANCIAL_MODELING_PREP_API_KEY=wELBWTxgCf4hvHwEPlbKEzEyJGV9NFjO <br>
+SECRET_KEY=tBa9DQghZ4I0gIbmaRx+rCsvpVQeHUNzasNpZNsU/1g= <br>
+PINECONE_API_KEY=pcsk_74Q455_QeXgB6C3kjopZg2c6SuCizxaKUAXeDKf3SR7vZW1CCigxGEgZefphFJ51p4sHuE <br>
+PINECONE_ENVIRONMENT=gcp-starter <br>
+PINECONE_INDEX_NAME=project-risk-index <br>
