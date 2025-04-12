@@ -1,0 +1,20 @@
+# Backend
+fastapi
+uvicorn
+crewai
+langchain
+langchain-google-genai
+google-generativeai
+supabase
+chromadb
+pandas
+numpy
+python-dotenv
+scikit-learn
+setuptools
+jose
+
+# Frontend
+streamlit
+requests
+plotly

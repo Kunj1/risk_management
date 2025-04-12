@@ -1,79 +1,87 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import Any, List
+from typing import Any, Dict
 import uuid
 
 from app.db.database import get_db
 from app.models import User, ChatLog
 from app.schemas import ChatMessageIn, ChatMessageOut
 from app.utils.security import get_current_user
-from langchain.chains import ConversationChain
-from langchain.memory import ConversationBufferMemory
-from langchain.llms import OpenAI
+from langchain.chains import LLMChain
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
+
 from app.config import settings
 
 router = APIRouter()
 
-# Initialize LLM for chat
-from langchain.chat_models import ChatOpenAI
-chat_model = ChatOpenAI(
-    temperature=0.7, 
-    model_name="gpt-4-turbo", 
-    openai_api_key=settings.OPENAI_API_KEY
-)
-
-# Create conversation chain with memory
-memory = ConversationBufferMemory(return_messages=True)
-conversation = ConversationChain(
-    llm=chat_model,
-    memory=memory,
-    verbose=True
-)
-
-@router.post("/", response_model=ChatMessageOut)
+@router.post("/message", response_model=ChatMessageOut)
 async def chat_with_bot(
-    chat_message: ChatMessageIn,
+    message_in: ChatMessageIn,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ) -> Any:
     """
-    Chat with the AI assistant about project risks.
+    Process a chat message from the user and generate a response.
     """
     try:
-        # Process the message with the LLM
-        response = conversation.predict(input=chat_message.message)
+        # Initialize the LLM based on your API keys
+        if settings.OPENAI_API_KEY:
+            llm = ChatOpenAI(temperature=0.7, model_name="gpt-4", api_key=settings.OPENAI_API_KEY)
+        elif settings.GEMINI_API_KEY:
+            from langchain_google_genai import ChatGoogleGenerativeAI
+            llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.7, google_api_key=settings.GEMINI_API_KEY)
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="No LLM API key configured"
+            )
         
-        # Create chat log
+        # Query the DB for project information related to this user
+        projects = db.query(User).filter(User.user_id == current_user.user_id).first().projects
+        project_info = "\n".join([
+            f"Project {p.name} (ID: {p.project_id}): Status: {p.status}, " 
+            f"Resource availability: {p.resource_availability}%, "
+            f"Payment received: {'Yes' if p.customer_payment_received else 'No'}, "
+            f"Schedule delay: {p.schedule_delay} days"
+            for p in projects
+        ])
+        
+        # Create the system prompt with project information
+        system_template = f"""
+        You are the Risk Management Assistant, an AI that helps project managers understand and manage project risks.
+        You have access to the following project information:
+        
+        {project_info}
+        
+        Respond to the user's queries about project risks, status, and provide recommendations for risk mitigation.
+        Always be concise and provide actionable insights.
+        """
+        
+        # Set up the prompt template
+        chat_prompt = ChatPromptTemplate.from_messages([
+            SystemMessagePromptTemplate.from_template(system_template),
+            HumanMessagePromptTemplate.from_template("{message}")
+        ])
+        
+        # Create and run the chain
+        chain = LLMChain(llm=llm, prompt=chat_prompt)
+        response = await chain.arun(message=message_in.message)
+        
+        # Log the chat interaction in the database
         chat_log = ChatLog(
             user_id=current_user.user_id,
-            message=chat_message.message,
+            message=message_in.message,
             response=response
         )
-        
-        # Save to database
         db.add(chat_log)
         db.commit()
         db.refresh(chat_log)
         
         return chat_log
+        
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error processing chat message: {str(e)}"
         )
-
-@router.get("/history", response_model=List[ChatMessageOut])
-def get_chat_history(
-    skip: int = 0,
-    limit: int = 50,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
-) -> Any:
-    """
-    Get chat history for the current user.
-    """
-    chat_logs = db.query(ChatLog).filter(
-        ChatLog.user_id == current_user.user_id
-    ).order_by(ChatLog.timestamp.desc()).offset(skip).limit(limit).all()
-    
-    return chat_logs

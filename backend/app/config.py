@@ -1,5 +1,5 @@
 import os
-from pydantic_settings import BaseSettings
+from pydantic import BaseSettings
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -34,6 +34,11 @@ class Settings(BaseSettings):
     
     # Logging settings
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
+
+    SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
+    SUPABASE_KEY: str = os.getenv("SUPABASE_KEY", "")
+    CHROMA_PERSIST_DIR: str = os.getenv("CHROMA_PERSIST_DIR", "./backend/data/chroma_db")
+
     
     class Config:
         env_file = ".env"
