@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import QueuePool
 
-from app.config import settings
+from ..config import settings
 
 # Create SQLAlchemy engine with PostgreSQL connection via Supabase
 engine = create_engine(

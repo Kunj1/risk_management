@@ -3,9 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import logging
 
-from app.db.database import engine, Base
-from app.endpoints import auth, projects, risks, market, reporting, chat
-from app.utils.logger import setup_logging
+from .db.database import engine, Base
+from .endpoints import auth, projects, risks, market, reporting, chat
+from .utils.logger import setup_logging
 
 # Initialize the FastAPI application
 app = FastAPI(

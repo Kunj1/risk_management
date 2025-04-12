@@ -3,15 +3,15 @@ from sqlalchemy.orm import Session
 from typing import Any, Dict
 import uuid
 
-from app.db.database import get_db
-from app.models import User, ChatLog
-from app.schemas import ChatMessageIn, ChatMessageOut
-from app.utils.security import get_current_user
+from ..db.database import get_db
+from ..models import User, ChatLog
+from ..schemas import ChatMessageIn, ChatMessageOut
+from ..utils.security import get_current_user
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 
-from app.config import settings
+from ..config import settings
 
 router = APIRouter()
 

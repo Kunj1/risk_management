@@ -7,11 +7,11 @@ import json
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc
 
-from app.models import Project, RiskLog, Alert, User
-from app.agents.market_analysis import MarketAnalysisAgent
-from app.agents.risk_scoring import RiskScoringAgent
-from app.agents.project_status import ProjectStatusAgent
-from app.utils.logger import get_logger
+from ..models import Project, RiskLog, Alert, User
+from ..agents.market_analysis import MarketAnalysisAgent
+from ..agents.risk_scoring import RiskScoringAgent
+from ..agents.project_status import ProjectStatusAgent
+from ..utils.logger import get_logger
 
 logger = get_logger(__name__)
 

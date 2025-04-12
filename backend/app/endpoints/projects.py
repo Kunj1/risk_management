@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from typing import Any, List, Optional
 import uuid
 
-from app.db.database import get_db
-from app.models import User, Project
-from app.schemas import ProjectCreate, ProjectOut, ProjectUpdate
-from app.utils.security import get_current_user
+from ..db.database import get_db
+from ..models import User, Project
+from ..schemas import ProjectCreate, ProjectOut, ProjectUpdate
+from ..utils.security import get_current_user
 
 router = APIRouter()
 

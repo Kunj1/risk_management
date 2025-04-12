@@ -6,9 +6,9 @@ from typing import List, Dict, Any
 import os
 import json
 
-from app.schemas import MarketAnalysisResponse, MarketIndicator
-from app.config import settings
-from app.utils.logger import LoggerMixin
+from ..schemas import MarketAnalysisResponse, MarketIndicator
+from ..config import settings
+from ..utils.logger import LoggerMixin
 
 from crewai import Agent, Task, Crew
 from crewai.tools import SerperDevTool

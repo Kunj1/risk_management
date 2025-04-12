@@ -6,9 +6,9 @@ from typing import Dict, List, Optional, Tuple, Any
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 
-from app.models import Project, RiskLog, Alert
-from app.schemas import RiskLogCreate
-from app.utils.logger import get_logger
+from ..models import Project, RiskLog, Alert
+from ..schemas import RiskLogCreate
+from ..utils.logger import get_logger
 
 logger = get_logger(__name__)
 

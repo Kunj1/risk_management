@@ -5,10 +5,10 @@ from datetime import datetime
 import uuid
 import json
 
-from app.models import Project, RiskLog
-from app.schemas import ProjectRiskScoreResponse, RiskFactorScore
-from app.config import settings
-from app.utils.logger import LoggerMixin
+from ..models import Project, RiskLog
+from ..schemas import ProjectRiskScoreResponse, RiskFactorScore
+from ..config import settings
+from ..utils.logger import LoggerMixin
 
 from crewai import Agent, Task, Crew
 from langchain_google_genai import ChatGoogleGenerativeAI

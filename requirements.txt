@@ -13,6 +13,10 @@ python-dotenv
 scikit-learn
 setuptools
 jose
+pydantic_settings
+pydantic[email]
+python-multipart
+langchain_community
 
 # Frontend
 streamlit

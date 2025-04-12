@@ -5,7 +5,7 @@ from pathlib import Path
 import os
 import time
 
-from app.config import settings
+from ..config import settings
 
 def setup_logging():
     """Configure logging for the application."""

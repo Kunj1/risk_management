@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import Any, List
 
-from app.db.database import get_db
-from app.models import User
-from app.schemas import MarketAnalysisResponse
-from app.utils.security import get_current_user
-from app.agents.market_analysis import analyze_market_trends
+from ..db.database import get_db
+from ..models import User
+from ..schemas import MarketAnalysisResponse
+from ..utils.security import get_current_user
+from ..agents.market_analysis import analyze_market_trends
 
 router = APIRouter()
 

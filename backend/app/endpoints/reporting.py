@@ -4,11 +4,11 @@ from typing import Any, List, Optional
 import uuid
 from datetime import datetime, date
 
-from app.db.database import get_db
-from app.models import User, Project, Alert, RiskLog
-from app.schemas import AlertCreate, AlertOut, AlertUpdate, ReportRequest, ReportResponse
-from app.utils.security import get_current_user
-from app.agents.reporting_agent import generate_risk_report
+from ..db.database import get_db
+from ..models import User, Project, Alert, RiskLog
+from ..schemas import AlertCreate, AlertOut, AlertUpdate, ReportRequest, ReportResponse
+from ..utils.security import get_current_user
+from ..agents.reporting_agent import generate_risk_report
 
 router = APIRouter()
 

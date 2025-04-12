@@ -3,11 +3,11 @@ from sqlalchemy.orm import Session
 from typing import Any, List, Optional
 import uuid
 
-from app.db.database import get_db
-from app.models import User, Project, RiskLog
-from app.schemas import RiskLogCreate, RiskLogOut, ProjectRiskScoreResponse
-from app.utils.security import get_current_user
-from app.agents.risk_scoring import calculate_project_risk_score
+from ..db.database import get_db
+from ..models import User, Project, RiskLog
+from ..schemas import RiskLogCreate, RiskLogOut, ProjectRiskScoreResponse
+from ..utils.security import get_current_user
+from ..agents.risk_scoring import calculate_project_risk_score
 
 router = APIRouter()
 
