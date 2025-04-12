@@ -1,2 +1,5 @@
 .env
 crewai_env
+*.pyc
+__pycache__/
+__init__.py
