@@ -1,3 +1,5 @@
+.env
+```
 GEMINI_API_KEY=AIzaSyC70do0gP7fvLU37jRU3XGjEqtd3YV91PE <br>
 DATABASE_URL=postgresql://agents_owner:npg_pW3eNmGsASB7@ep-damp-firefly-a1puvvwf-pooler.ap-southeast-1.aws.neon.tech/agents?sslmode=require <br>
 SUPABASE_URL=https://xpdpesvmwydqtilzurkf.supabase.co <br>
@@ -9,3 +11,4 @@ SECRET_KEY=tBa9DQghZ4I0gIbmaRx+rCsvpVQeHUNzasNpZNsU/1g= <br>
 PINECONE_API_KEY=pcsk_74Q455_QeXgB6C3kjopZg2c6SuCizxaKUAXeDKf3SR7vZW1CCigxGEgZefphFJ51p4sHuE <br>
 PINECONE_ENVIRONMENT=gcp-starter <br>
 PINECONE_INDEX_NAME=project-risk-index <br>
+```
