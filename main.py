@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, BeforeValidator, ConfigDict
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 import pymongo
+from fastapi.middleware.cors import CORSMiddleware
 
 # Import the multiagent system functions and loaders from your agent module.
 from agent import setup_multiagent_system, load_employee_data, load_project_data, load_financial_data, pipe_to_conversation_bot
@@ -18,6 +19,19 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI(title="Multiagent Chat Backend with MongoDB")
+
+origins = [
+    "http://localhost:8501",         # For local development with Streamlit
+    "https://agentversebycorpusbound.streamlit.app/"  # Replace with your actual deployed frontend domain
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,             # Allow requests from these origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # MongoDB connection details
 MONGODB_URL = os.getenv("MONGODB_URL")
