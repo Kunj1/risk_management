@@ -282,3 +282,7 @@ async def continue_chat(
         return response_text
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing message: {str(e)}")
+
+@app.get("/ping", response_class=PlainTextResponse)
+async def ping():
+    return "OK"
