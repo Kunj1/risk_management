@@ -11,6 +11,11 @@ AgentVerse is a sophisticated multi-agent system designed to revolutionize proje
 - **Frontend**: [https://agentversebycorpusbound.streamlit.app/](https://agentversebycorpusbound.streamlit.app/)
 - **Backend API**: [https://agentverse.onrender.com/](https://agentverse.onrender.com/)
 
+## Github Repositories
+
+- **Frontend**: [https://github.com/Kunj1/AgentVerse](https://github.com/Kunj1/AgentVerse)
+- **Backend**: [https://github.com/Kunj1/risk_management](https://github.com/Kunj1/risk_management)
+
 ## Features
 
 - **Multi-Agent Architecture**: Specialized AI agents working together to provide holistic analysis
