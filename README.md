@@ -9,7 +9,7 @@ AgentVerse is a sophisticated multi-agent system designed to revolutionize proje
 ## Live Demo
 
 - **Frontend**: [https://agentversebycorpusbound.streamlit.app/](https://agentversebycorpusbound.streamlit.app/)
-- **Backend API**: [https://agentverse.onrender.com/](https://agentverse.onrender.com/)
+- **Backend API**: [https://agentverse-uz89.onrender.com](https://agentverse-uz89.onrender.com)
 
 ## Github Repositories
 
